@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:on_boarding/core/constants.dart';
+import 'package:on_boarding/core/utils/size_config.dart';
+import 'package:on_boarding/features/on_boarding/persentation/on_boarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xff33ffbb),
-      body: SplashScreenBody(),
-    );
+    return Scaffold(backgroundColor: kMainColor, body: SplashScreenBody());
   }
 }
 
@@ -37,6 +37,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     ).animate(animationController!);
 
     animationController?.repeat(reverse: true);
+    goToNextView();
   }
 
   @override
@@ -47,6 +48,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -68,5 +70,14 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
         ],
       ),
     );
+  }
+
+  void goToNextView() {
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OnBoardingScreen()),
+      );
+    });
   }
 }
